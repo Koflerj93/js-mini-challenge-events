@@ -39,8 +39,58 @@ function toggleColor(element) {
     element.style.color = "red"
   }
 }
+const header = document.querySelector("h1#header");
+header.addEventListener("mouseover", function(e) {
+  e.target.style.cursor = "pointer";
+}) 
 
+header.addEventListener("click", function(e) {
+  toggleColor(header);
+})
 
 /***** Deliverable 2 *****/
 
+function createPlayer() {
+  
+  const form = document.querySelector('#new-player-form');
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const submitForm = e.target; //gives us the form and its children
+    const playerNumber = submitForm[0].value;
+    const playerName = submitForm[1].value;
+    const playerNickname = submitForm[2].value;
+    const playerPhoto = submitForm[3].value;
+   
+
+    const playerObject = {
+      number: `${playerNumber}`,
+      name: `${playerName}`,
+      nickname: `${playerNickname}`,
+      photo: `${playerPhoto}`,
+      likes: 0,
+    }
+    renderPlayer(playerObject);
+  })
+};
+
+createPlayer();
 /***** Deliverable 3 *****/
+
+function likeButton(){
+  const likeButtons = document.querySelectorAll('.like-button');
+
+  for(let button of likeButtons) {
+    button.addEventListener('click', function(event) {
+      const button = event.target;
+      const likes = button.parentElement.querySelector('p');
+      const split = likes.textContent.split(' ');
+      const likeNumber = parseInt(split[0]);
+      const newLikeNumber = likeNumber + 1;
+      likes.innerHTML = `${newLikeNumber} likes`
+
+    })
+  }
+}
+
+likeButton()
